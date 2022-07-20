@@ -9,10 +9,27 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="root"></div>
+
 
     <script>
-        
+        const divReact = React.createElement(
+            'div', 
+            null, 
+            React.createElement(
+                'h2', 
+                {title: 'Hoc React tai F8'}, 
+                'Hoc ReactJS'
+            ),
+            React.createElement('p', null, 'Hoc ReactJS tu co ban den nang cao')
+        );
+
+        // GET root element
+        const root = document.getElementById('root');
+
+        // React-DOM -> render UI
+        ReactDOM.render(divReact, root);
+
     </script>
 </body>
 </html>
