@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17.0.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.production.min.js"></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+
+        // class PostItem extends React.Component {
+        //     render() {
+        //         <div className='post-item'>
+        //         </div>
+        //     }
+        // }
+        
+        function PostItem() {
+            return (
+                <div className='post-item'>
+                    <img src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'></img>
+                    <h2 className='post-title'>Xây Dựng Website với ReactJS</h2>
+                    <p className='post-desc'>Nothing</p>
+                    <p className='post-published'>43.149</p>
+                </div>
+            )
+        }
+
+        // const app = (
+        //     <div className='posts-list'>
+        //         <PostItem />
+        //         <PostItem />
+        //         <PostItem />
+        //     </div>
+        // ) 
+
+        function App() {
+            return (
+                <div className='posts-list'>
+                    <PostItem />
+                    <PostItem />
+                    <PostItem />
+                </div>
+            )
+        }
+
+
+        ReactDOM.render(<App />, document.getElementById('root'))
+    </script>
+</body>
+</html>
