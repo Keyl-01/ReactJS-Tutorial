@@ -1,20 +1,24 @@
 import { useState } from'react'
+import Content from './Content';
 
 function App() {
+  const [toggle, setToggle] = useState('Show')
 
-  const [counter, setCounter] = useState(1)
-
-  const handleIncrease = () => {
-    // setCounter(counter + 1)
-    setCounter(prevState => counter + 1)
+  const handleToggle = () => {
+    setToggle(prev => {
+      if (prev === 'Show') {
+        return 'Hide'
+      }
+      return 'Show'
+    })
   }
 
   return (
-    <div className="App" style={{padding: 20}}>
-      <h1>{counter}</h1>
-      <button onClick={handleIncrease}>Increase</button>
+    <div style={{padding: 20}}>
+      <button onClick={handleToggle}>{toggle}</button>
+      {toggle==='Show' || <Content />}
     </div>
-  );
+  )
 }
 
 export default App;
