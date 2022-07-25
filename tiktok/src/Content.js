@@ -14,93 +14,53 @@ import { useEffect, useState } from 'react'
 // 2. Cleanup function luôn được gọi trước khi component unmounted
 
 
-const types = ['posts', 'comments', 'albums']
+const lessons = [
+    {
+        id: 1,
+        name: 'ReactJS là gì? Tại sao nên học ReactJS'
+    },
+    {
+        id: 2,
+        name: 'SPA/MPA là gì?'
+    },
+    {
+        id: 3,
+        name: 'Arrow function'
+    },
+]
 
 function Content() {
-    const [posts, setPosts] = useState([])
-    const [type, setType] = useState(types[0])
-
-    const [showGoToTop, setShowGoToTop] = useState(false)
-    
-    
-    useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/${type}`)
-            .then(res => res.json())
-            .then(posts => {
-                setPosts(posts)
-            })
-
-    }, [type])
+    const [lessonId, setLessonId] = useState(1)
 
     useEffect(() => {
-        const handleScroll = () => {
-            // if (window.scrollY > 200) {
-            //     // Show
 
-            // } else {
-            //     // Hide
-
-            // }
-            
-            setShowGoToTop(window.scrollY > 200)
+        const handleComment = ({ detail }) => {
+            console.log(detail)
         }
 
-        window.addEventListener('scroll', handleScroll)
-        console.log('add')
-
-        // Cleanup function
-        return () => {
-            console.log('remove')
-            window.removeEventListener('scroll', handleScroll)
-        }
-
-    }, [])
-
-
-
-    const [width, setWidth] = useState(window.innerWidth)
-    useEffect(() => {
-        const handleRedize = () => {
-            setWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleRedize)
+        window.addEventListener(`lesson-${lessonId}`, handleComment)
 
         return () => {
-            window.removeEventListener('resize', handleRedize)
+            window.removeEventListener(`lesson-${lessonId}`, handleComment)
         }
-    }, [])
+        
+    }, [lessonId])
 
     return (
         <div>
-            {types.map(tab => (
-                <button 
-                    key={tab}
-                    style={tab === type ? {
-                        color: '#fff',
-                        backgroundColor: '#333'
-                    } : {}}
-                    onClick={() => setType(tab)}
-                >
-                    {tab}
-                </button>
-            ))}
-            <h1>{width}</h1>
             <ul>
-                {posts.map(post => (
-                    <li key={post.id}>{post.title || post.name}</li>
+                {lessons.map(lesson => (
+                    <li 
+                        key={lesson.id}
+                        style={{
+                            color: lessonId === lesson.id ? 'red' : '#333'
+                        }}
+                        onClick={() => setLessonId(lesson.id)}
+                    >
+                        {lesson.name}
+                    </li>
                 ))}
             </ul>
-            {showGoToTop && (<button
-                style={{
-                    position: 'fixed',
-                    right: 20,
-                    bottom: 20
-                }}
-            >
-                Go to Top
-            </button>
-            )}
         </div>
     )
 }
