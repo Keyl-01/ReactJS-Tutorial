@@ -12,67 +12,8 @@ import { useEffect, useState } from 'react'
 // -------------
 // 1. Callback luôn được gọi sau khi component mounted
 // 2. Cleanup function luôn được gọi trước khi component unmounted
-// 3. Cleanup function luôn được gọi trước khi callback duoc goi (tru lan mounted)
 
 
-<<<<<<< HEAD
-// Example
-// function Content() {
-//     const [count, setCount] = useState(1)
-
-//     useEffect(() => {
-//         console.log(`Mounted or Re-render lan ${count}`)
-
-//         return () => {
-//             console.log(`Cleanup lan ${count}`)
-//         }
-//     }, [count])
-
-//     return (
-//         <div>
-//             <h1>{count}</h1>
-//             <button onClick={() => setCount(count + 1)}>
-//                 Click me!
-//             </button>
-//         </div>
-//     )
-// }
-
-
-
-function Content() {
-    const [avatar, setAvatar] = useState('')
-
-    const handlePreviewAvatar = (e) => {
-        const file = e.target.files[0]
-
-        file.preview = URL.createObjectURL(file)
-
-        // console.log(URL.createObjectURL(file))
-        console.log(file.preview)
-
-        setAvatar(file)
-    }
-
-    useEffect(() => {
-        // Cleanup
-        return () => {
-            avatar && console.log('Remove', avatar.preview);
-            avatar && URL.revokeObjectURL(avatar.preview)
-            
-        }
-    }, [avatar])
-
-    return (
-        <div>
-            <input 
-                type="file"
-                onChange={handlePreviewAvatar}
-            />
-            {avatar && (
-                <img src={avatar.preview} alt="" width="90%" />
-            )}
-=======
 const lessons = [
     {
         id: 1,
@@ -120,7 +61,6 @@ function Content() {
                     </li>
                 ))}
             </ul>
->>>>>>> 1dddab6d391bb7c065295475abd91b45541c81a0
         </div>
     )
 }
