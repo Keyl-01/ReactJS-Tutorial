@@ -1,6 +1,5 @@
 import { useState } from'react'
-import Content from './Content';
-import {Polygon} from './Polygon';
+import Content from './Content-useEffect-with-timer-functions';
 
 function App() {
   const [toggle, setToggle] = useState('Show')
@@ -18,7 +17,6 @@ function App() {
     <div style={{padding: 20}}>
       <button onClick={handleToggle}>{toggle}</button>
       {toggle==='Show' || <Content />}
-      <Polygon />
     </div>
   )
 }
