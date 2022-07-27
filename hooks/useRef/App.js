@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from'react'
-import Content from './Content';
 
 function App() {
   const [count, setCount] = useState(60)
