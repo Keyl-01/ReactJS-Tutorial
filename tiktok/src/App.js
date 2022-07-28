@@ -1,41 +1,62 @@
-import { useRef, useState, useEffect } from'react'
-import Content from './Content';
+import { useState, useMemo, useRef } from'react'
 
 function App() {
-  const [count, setCount] = useState(60)
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('')
+  const [products, setProducts] = useState([])
 
-  const timerId = useRef()
-  const prevCount = useRef()
-  const h1Ref = useRef()
+  const nameRef = useRef()
 
-  useEffect(() => {
-    prevCount.current = count
-  }, [count])
+  const handleAdd = () => {
+    setProducts([...products, {
+      name, 
+      price: parseInt(price)
+    }])
+    setName('')
+    setPrice('')
 
-  useEffect(() => {
-    const rect = h1Ref.current.getBoundingClientRect()
-    console.log(rect);
-  })
-
-  const handleStart = () => {
-    timerId.current = setInterval(() => {
-      setCount(prev => prev - 1)
-    }, 1000)
+    nameRef.current.focus()
   }
 
-  const handleStop = () => {
-    clearInterval(timerId.current)
-  }
+  const total = useMemo(() => {
+    const result = products.reduce((result, product) => {
+      console.log('Tinh toan lai');
 
-  console.log(count, prevCount.current)
+      return result + product.price 
+    }, 0)
+
+    return result
+  }, [products])
 
   return (
-    <div style={{padding: 20}}>
-      <h1 ref={h1Ref}>{count}</h1>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
+    <div style={{padding: 32}}>
+      <input 
+        ref={nameRef}
+        value={name} 
+        placeholder="Enter name..."
+        onChange={e => setName(e.target.value)}
+      />
+      <input 
+        value={price} 
+        placeholder="Enter price..."
+        onChange={e => setPrice(e.target.value)}
+      />
+      <button
+        onClick={handleAdd}
+      >
+        Add
+      </button>
+      <br />
+      Total: {total}
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>
+            {product.name} - {product.price}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
 
-export default App;
+export default App
