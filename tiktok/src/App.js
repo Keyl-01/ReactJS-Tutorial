@@ -1,30 +1,39 @@
-import { useState, createContext } from 'react'
-import Content from "./Content"
-
-
-export const ThemeContext = createContext()
-
-// Context
-// CompA => CompB => CompC
-
-// 1. Create context
-// 2. Provider
-// 3. Consumer
+import { useRef } from 'react'
+import { useStore, actions } from './store'
 
 function App() {
-  const [theme, setTheme] = useState('black')
+  const [state, dispatch] = useStore()
+  const { todos, todoInput } = state
 
-  const handleToggle = () => {
-    setTheme(theme === 'black' ? 'red' : 'black')
+  const inputRef = useRef()
+
+  const handleAdd = () => {
+    dispatch(actions.addTodo(todoInput))
+
+    dispatch(actions.setTodoInput(''))
+    inputRef.current.focus()
   }
 
+  console.log('Todo Input: ', todoInput);
+  
+
   return (
-    <ThemeContext.Provider value={theme}>
       <div style={{ padding: 20 }}>
-        <button onClick={handleToggle}>Toggle theme</button>
-        <Content />
+        <input 
+          ref={inputRef}
+          value={todoInput}
+          placeholder="Enter todo..."
+          onChange={e => {
+            dispatch(actions.setTodoInput(e.target.value))
+          }}
+        />
+        <button onClick={handleAdd}>Add</button>
+        <ul>
+          {todos.map((todo, index) => (
+            <li key={index}>{todo}</li>
+          ))}
+        </ul>
       </div>
-    </ThemeContext.Provider>
   )
 }
 
